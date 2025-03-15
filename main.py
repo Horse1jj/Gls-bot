@@ -1,20 +1,25 @@
 import discord
 from discord.ext import commands
-import config
+import asyncio
 
 intents = discord.Intents.default()
-intents.messages = True
-intents.guilds = True
-intents.members = True
-intents.message_content = True
+intents.message_content = True  # Enable message content access
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.event
 async def on_ready():
     print(f"Logged in as {bot.user}")
-    await bot.load_extension("cogs.bounty")
-    await bot.load_extension("cogs.review")
 
-bot.run(config.TOKEN)
+# Load cogs
+async def load_cogs():
+    await bot.load_extension("cogs.bounty")
+
+async def main():
+    async with bot:
+        await load_cogs()
+        await bot.start("YOUR_BOT_TOKEN")
+
+asyncio.run(main())
+
 

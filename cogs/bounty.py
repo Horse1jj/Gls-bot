@@ -8,7 +8,7 @@ class Bounty(commands.Cog):
     @commands.command()
     async def bounty(self, ctx, target: str, reward: str, *, instructions: str):
         """Creates a bounty with a target, reward, and instructions."""
-        # Validate reward input
+
         try:
             reward = int(reward)
             if reward <= 0:
